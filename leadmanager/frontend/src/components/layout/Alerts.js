@@ -8,18 +8,27 @@ export class Alerts extends Component {
     error: PropTypes.object.isRequired,
   };
 
-  componentDidUpdate(prevProps){
+  componentDidUpdate(prevProps) {
     const { error, alert, message } = this.props;
-    if(error !== prevProps.error){
-      if(error.msg.name) alert.error(`Name: ${error.msg.name.join()}`);
-      if(error.msg.email) alert.error(`Email: ${error.msg.email.join()}`);
-      if(error.msg.message) alert.error(`Message: ${error.msg.message.join()}`);
+    if (error !== prevProps.error) {
+      if (error.msg.name) alert.error(`Name: ${error.msg.name.join()}`);
+      if (error.msg.email) alert.error(`Email: ${error.msg.email.join()}`);
+      if (error.msg.message) alert.error(`Message: ${error.msg.message.join()}`);
+      if (error.msg.password) alert.error(error.msg.password.join());
+      if (error.msg.username) alert.error(error.msg.username.join());
+      if (error.msg.non_field_errors) alert.error(error.msg.non_field_errors.join());
     }
 
-    if(message !== prevProps.message){
-      if(message.msg) alert.success(message.msg);
+    if (message !== prevProps.message) {
+      if (message.msg) {
+        if (message.error) {
+          alert.error(message.msg);
+        } else {
+          alert.success(message.msg);
+        }
+      }
     }
-  } 
+  }
 
   render() {
     return <Fragment />;
